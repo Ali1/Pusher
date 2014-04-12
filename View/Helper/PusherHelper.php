@@ -8,19 +8,22 @@ class PusherHelper extends Helper {
 
 	private $appKey = '';
 
-	public function __construct(View $view, $settings = array()) {
-		parent::__construct($view, $settings);
+	public $jsInitiated = false;
+
+	function initJs() {
 		$this->appKey = Configure::read('Pusher.credentials.appKey');
-		$this->Js->buffer('pusher = new Pusher(\'' . $this->appKey . '\');');
-		$this->Js->buffer('Pusher.channel_auth_endpoint = \''. $this->url(Configure::read('Pusher.channelAuthEndpoint')) .'\'');
+		$this->Js->buffer("pusher = new Pusher('" . $this->appKey . "', {authEndpoint: '" . $this->url(Configure::read('Pusher.channelAuthEndpoint')) . "'});");
+		$this->jsInitiated = true;
 	}
 
 	public function afterRender($layout) {
-		echo $this->Html->script('http://js.pusher.com/1.12/pusher.min.js', array('inline' => false));
-		echo $this->Js->writeBuffer(array('inline' => false));
+		$this->Html->script('//d3dy5gmtp8yhk7.cloudfront.net/2.1/pusher.min.js', array('inline' => false));
 	}
 
 	public function subscribe($channelName, $type = 'public') {
+		if (!$this->jsInitiated) {
+			$this->initJs();
+		}
 		$channelName = strtolower($channelName);
 		$channelName = ($type == 'private' || $type == 'presence') ? $type . '-' . $channelName : $channelName;
 		$this->Js->buffer('pusher.subscribe(\'' . $channelName . '\')');
