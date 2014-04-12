@@ -11,7 +11,7 @@ class PusherHelper extends Helper {
 	public function __construct(View $view, $settings = array()) {
 		parent::__construct($view, $settings);
 		$this->appKey = Configure::read('Pusher.credentials.appKey');
-		$this->Js->buffer('var pusher = new Pusher(\'' . $this->appKey . '\');');
+		$this->Js->buffer('pusher = new Pusher(\'' . $this->appKey . '\');');
 		$this->Js->buffer('Pusher.channel_auth_endpoint = \''. $this->url(Configure::read('Pusher.channelAuthEndpoint')) .'\'');
 	}
 
