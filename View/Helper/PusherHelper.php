@@ -12,7 +12,7 @@ class PusherHelper extends Helper {
 
 	function initJs() {
 		$this->appKey = Configure::read('Pusher.credentials.appKey');
-		$this->Js->buffer("pusher = new Pusher('" . $this->appKey . "', {authEndpoint: '" . $this->url(Configure::read('Pusher.channelAuthEndpoint')) . "'});");
+		$this->Js->buffer("pusher = new Pusher('" . $this->appKey . "', {authEndpoint: '" . $this->url(array('plugin' => 'pusher', 'controller' => 'pusher', 'action' => 'auth.json')) . "'});");
 		$this->jsInitiated = true;
 	}
 
