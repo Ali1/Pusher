@@ -1,0 +1,16 @@
+{
+    "name": "ali1/cakephp-pusher",
+    "description" : "A CakePHP plugin to use the Pusher API",
+    "license" : "WTFPL",
+    "type" : "cakephp-plugin",
+    "authors": [
+    ],
+    "require" : {
+        "composer/installers": "*"
+    },
+    "require-dev" : {
+    },
+    "extra": {
+        "installer-name" : "Pusher"
+    }
+}
