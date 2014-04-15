@@ -8,7 +8,11 @@ This plugin also provides a way to generate all the javascript stuff with the He
 Installation
 ------------
 
-Copy to your application plugins folder and load it in your bootstrap file :
+Either copy the contents of this repo to your Plugin folder or add the following to composer:
+
+	"ali1/cakephp-pusher": "dev-master"
+
+Now load it in your bootstrap file :
 
 	CakePlugin::load('Pusher', array('
 		'bootstrap' => true
