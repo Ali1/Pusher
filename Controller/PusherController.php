@@ -2,8 +2,14 @@
 
 class PusherController extends PusherAppController {
 	
-	public $components = array('Auth', 'RequestHandler', 'Pusher.Pusher');
+	public $components = array('RequestHandler', 'Pusher.Pusher');
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+		if (isset($this->Security)) {
+			$this->Security->unlockedActions = ['auth'];
+		}
+	}
 	public function auth() {
 		if($this->request->is('post') && isset($this->request->data['channel_name']) && isset($this->request->data['socket_id'])) {
 			$authData = '';
