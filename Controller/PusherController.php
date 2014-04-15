@@ -9,10 +9,14 @@ class PusherController extends PusherAppController {
 			$authData = '';
 			switch($this->Pusher->getChannelType($this->request->data['channel_name'])) {
 				case 'private':
-					$authData = $this->Pusher->privateAuth(
-						$this->request->data['channel_name'],
-						$this->request->data['socket_id']
-					);
+					if ($this->_pusherCanAccessPrivateChannel($this->request->data['channel_name'], $this->request->data['socket_id'])) {
+						$authData = $this->Pusher->privateAuth(
+							$this->request->data['channel_name'],
+							$this->request->data['socket_id']
+						);
+					} else {
+						throw new ForbiddenException();
+					}
 					break;
 				case 'presence':
 					//todo
