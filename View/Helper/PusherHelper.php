@@ -17,7 +17,7 @@ class PusherHelper extends Helper {
 	}
 
 	public function afterRender($layout) {
-		$this->Html->script('//d3dy5gmtp8yhk7.cloudfront.net/2.1/pusher.min.js', array('inline' => false));
+		$this->Html->script('//cdnjs.cloudflare.com/ajax/libs/pusher/2.1.6/pusher.min.js', array('inline' => false));
 	}
 
 	public function subscribe($channelName, $type = 'public') {
